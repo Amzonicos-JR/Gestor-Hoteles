@@ -12,6 +12,7 @@ const app = express();
 const port = process.env.PORT || 3500;
 
 // Routes
+const userRoutes = require('../src/user/user.routes');
 /* const accountRoutes = require('../src/account/account.routes'); */
 
 
@@ -23,6 +24,7 @@ app.use(helmet());
 app.use(morgan('dev'));
 
 // Ruta
+app.use('/user', userRoutes);
 /* app.use('/user', userRoutes); */
 
 
