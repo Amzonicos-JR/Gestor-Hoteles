@@ -1,0 +1,27 @@
+"use strict";
+
+const mongoose = require("mongoose");
+
+const invoiceDetailSchema = mongoose.Schema({
+    additionalServices: [{
+        type: String,
+        require: true,
+      }],
+    events: [{
+        type: String,
+        require: true,
+      }],
+    booking: {
+        type: String,
+        require: true
+    },
+    subTotalAccount: {
+      type: Number,
+      require: true,
+      default: 0
+    },
+  },  {
+    versionKey: false,
+  });
+
+module.exports = mongoose.model("InvoiceDetail", invoiceDetailSchema);
