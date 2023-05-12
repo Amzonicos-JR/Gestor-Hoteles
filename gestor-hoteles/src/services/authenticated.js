@@ -27,3 +27,26 @@ exports.ensureAuth = (req, res, next)=>{
         next()
     }
 }
+
+exports.isAdmin = async(req, res, next)=>{
+    try{
+        let user = req.user;
+        if(user.role !== 'ADMIN' && user.role !== 'ADMINAM') return res.status(403).send({message: 'Unauthorized user'});
+        next();
+    }catch(err){
+        console.error(err);
+        return res.status(403).send({message: 'Error unauthorized user'});
+    }
+}
+
+/*exports.isAdminAmzonico = async(req, res, next)=>{
+    try{
+        let user = req.user;
+        if(user.role !== 'ADMINAM') return res.status(403).send({message: 'Unauthorized user'});
+        next();
+    }catch(err){
+        console.error(err);
+        return res.status(403).send({message: 'Error unauthorized user'});
+    }
+}
+*/
