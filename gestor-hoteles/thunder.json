@@ -1,0 +1,274 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Gestor Hoteles",
+    "dateExported": "2023-05-11T22:27:13.235Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "364dbcb5-6a07-450b-952b-442444378691",
+            "name": "event",
+            "containerId": "",
+            "created": "2023-05-11T19:01:51.783Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "a57a4273-2ae9-45a0-a908-273525220212",
+            "name": "service",
+            "containerId": "",
+            "created": "2023-05-11T19:01:51.784Z",
+            "sortNum": 20000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "fec78d25-e16f-4857-8049-d3420c4e78db",
+            "colId": "44e87bc9-aae0-41d2-aacc-37a00d5b0d7b",
+            "containerId": "364dbcb5-6a07-450b-952b-442444378691",
+            "name": "Test-Event",
+            "url": "/event/test",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-05-11T19:01:51.784Z",
+            "modified": "2023-05-11T22:25:16.441Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": ""
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "f4a3e7ae-34ca-44e0-83f7-55a7f96918cd",
+            "colId": "44e87bc9-aae0-41d2-aacc-37a00d5b0d7b",
+            "containerId": "364dbcb5-6a07-450b-952b-442444378691",
+            "name": "Add-Event",
+            "url": "/event/add",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-05-11T19:01:51.785Z",
+            "modified": "2023-05-11T19:01:51.785Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "name",
+                        "value": "Concierto"
+                    },
+                    {
+                        "name": "event_type",
+                        "value": "Publico"
+                    },
+                    {
+                        "name": "price",
+                        "value": "200"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "b6d5cf4e-ee3d-4e09-ad50-f8f5b77adb0e",
+            "colId": "44e87bc9-aae0-41d2-aacc-37a00d5b0d7b",
+            "containerId": "364dbcb5-6a07-450b-952b-442444378691",
+            "name": "Get-Event",
+            "url": "/event/get",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-05-11T19:01:51.786Z",
+            "modified": "2023-05-11T19:01:51.786Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "aad4d6db-33de-4ee6-b8fb-4c80cbb6f22b",
+            "colId": "44e87bc9-aae0-41d2-aacc-37a00d5b0d7b",
+            "containerId": "364dbcb5-6a07-450b-952b-442444378691",
+            "name": "Get ID -Event",
+            "url": "/event/get/645d3c0bee34621e5bcff426",
+            "method": "GET",
+            "sortNum": 50000,
+            "created": "2023-05-11T19:01:51.787Z",
+            "modified": "2023-05-11T19:04:25.350Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "2130699d-5849-44fd-b3e6-ca95be295f6b",
+            "colId": "44e87bc9-aae0-41d2-aacc-37a00d5b0d7b",
+            "containerId": "364dbcb5-6a07-450b-952b-442444378691",
+            "name": "Update-Event",
+            "url": "/event/update/645d3c0bee34621e5bcff426",
+            "method": "PUT",
+            "sortNum": 60000,
+            "created": "2023-05-11T19:01:51.788Z",
+            "modified": "2023-05-11T19:04:28.924Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "name",
+                        "value": "Karaoke"
+                    },
+                    {
+                        "name": "event_type",
+                        "value": "Privado"
+                    },
+                    {
+                        "name": "price",
+                        "value": "100"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "72523be9-fa11-4d97-be56-cc62aa1edef9",
+            "colId": "44e87bc9-aae0-41d2-aacc-37a00d5b0d7b",
+            "containerId": "364dbcb5-6a07-450b-952b-442444378691",
+            "name": "Delete-Event",
+            "url": "/event/delete/645d3c0bee34621e5bcff426",
+            "method": "DELETE",
+            "sortNum": 70000,
+            "created": "2023-05-11T19:01:51.789Z",
+            "modified": "2023-05-11T19:04:35.045Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "8ee3c65a-661a-4e1f-9944-0c29fa33366f",
+            "colId": "44e87bc9-aae0-41d2-aacc-37a00d5b0d7b",
+            "containerId": "a57a4273-2ae9-45a0-a908-273525220212",
+            "name": "Test-Service",
+            "url": "/service/test",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2023-05-11T19:01:51.790Z",
+            "modified": "2023-05-11T19:01:51.790Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "a4775c4f-6147-4ae2-b13f-7ddf9fda0400",
+            "colId": "44e87bc9-aae0-41d2-aacc-37a00d5b0d7b",
+            "containerId": "a57a4273-2ae9-45a0-a908-273525220212",
+            "name": "Add-Service",
+            "url": "/service/add",
+            "method": "POST",
+            "sortNum": 90000,
+            "created": "2023-05-11T19:01:51.791Z",
+            "modified": "2023-05-11T19:01:51.791Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "name",
+                        "value": "Aire Acondicionado"
+                    },
+                    {
+                        "name": "description",
+                        "value": "24 HORAS"
+                    },
+                    {
+                        "name": "price",
+                        "value": "150"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "27411c5a-ce9c-40e7-8d10-189c0535f0d6",
+            "colId": "44e87bc9-aae0-41d2-aacc-37a00d5b0d7b",
+            "containerId": "a57a4273-2ae9-45a0-a908-273525220212",
+            "name": "Get-Service",
+            "url": "/service/get",
+            "method": "GET",
+            "sortNum": 110000,
+            "created": "2023-05-11T19:01:51.792Z",
+            "modified": "2023-05-11T19:01:51.792Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "2bed7a04-4a38-4cbc-aac3-a2dc28dc3c3a",
+            "colId": "44e87bc9-aae0-41d2-aacc-37a00d5b0d7b",
+            "containerId": "a57a4273-2ae9-45a0-a908-273525220212",
+            "name": "Get ID-Service",
+            "url": "/service/get/645d3c4aee34621e5bcff42e",
+            "method": "GET",
+            "sortNum": 120000,
+            "created": "2023-05-11T19:01:51.793Z",
+            "modified": "2023-05-11T19:05:12.517Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "d8c00814-dd2d-4d62-9f19-5efed792e6eb",
+            "colId": "44e87bc9-aae0-41d2-aacc-37a00d5b0d7b",
+            "containerId": "a57a4273-2ae9-45a0-a908-273525220212",
+            "name": "Update-Service",
+            "url": "/service/update/645d3c4aee34621e5bcff42e",
+            "method": "PUT",
+            "sortNum": 130000,
+            "created": "2023-05-11T19:01:51.794Z",
+            "modified": "2023-05-11T22:03:25.810Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "name",
+                        "value": "Calefaccion"
+                    },
+                    {
+                        "name": "description",
+                        "value": "24 Horas"
+                    },
+                    {
+                        "name": "price",
+                        "value": "50"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "43c50c66-89e7-455c-a7e7-4b1db4a35d66",
+            "colId": "44e87bc9-aae0-41d2-aacc-37a00d5b0d7b",
+            "containerId": "a57a4273-2ae9-45a0-a908-273525220212",
+            "name": "Delete-Service",
+            "url": "/service/delete/645d3c4aee34621e5bcff42e",
+            "method": "DELETE",
+            "sortNum": 140000,
+            "created": "2023-05-11T19:01:51.796Z",
+            "modified": "2023-05-11T19:05:21.658Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ],
+    "settings": {
+        "options": {
+            "baseUrl": "localhost:3000"
+        }
+    }
+}
