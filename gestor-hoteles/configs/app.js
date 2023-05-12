@@ -12,8 +12,7 @@ const app = express();
 const port = process.env.PORT || 3500;
 
 // Routes
-const eventRoutes = require('../src/events_/events.routes')
-const serviceRoutes = require('../src/services_/services.routes')
+const roomRoutes = require('../src/room/room.routes')
 
 //CONFIGURAR EL SERVIDOR HTTP DE EXPRESS
 app.use(express.urlencoded({extended: false}));
@@ -22,10 +21,8 @@ app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
 
-// Ruta
-app.use('/event', eventRoutes);
-app.use('/service', serviceRoutes)
-
+// Rutas
+app.use('/room', roomRoutes);
 
 //Función donde se levanta el servidor
 exports.initServer = ()=>{
