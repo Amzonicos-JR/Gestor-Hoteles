@@ -1,0 +1,332 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "gestor-hoteles",
+    "dateExported": "2023-05-15T22:02:13.443Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "5c82e899-a2ef-499c-b2e5-dc6c13a61110",
+            "name": "invoice detail",
+            "containerId": "",
+            "created": "2023-05-10T21:52:39.582Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "96b57c8b-e7d4-4d61-9e7f-d4cb38078f95",
+            "name": "additional services",
+            "containerId": "5c82e899-a2ef-499c-b2e5-dc6c13a61110",
+            "created": "2023-05-10T22:57:25.156Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "17dfbaad-da4f-4ea1-bc96-5bd2517e8194",
+            "name": "events",
+            "containerId": "5c82e899-a2ef-499c-b2e5-dc6c13a61110",
+            "created": "2023-05-11T03:20:12.455Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "a78aa8d6-e191-47d7-b33d-c874b4cb3364",
+            "name": "bill",
+            "containerId": "",
+            "created": "2023-05-15T21:48:17.069Z",
+            "sortNum": 50000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "49e1198f-866d-436e-b507-8bd296d3811e",
+            "colId": "a0fd8945-8b02-4c56-9b43-cf69341ca90d",
+            "containerId": "5c82e899-a2ef-499c-b2e5-dc6c13a61110",
+            "name": "add invoice detail",
+            "url": "localhost:3000/invoicedetail/add",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-05-10T22:16:12.223Z",
+            "modified": "2023-05-10T22:17:50.373Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "booking",
+                        "value": "12345"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "14cb877b-9951-41e7-bd2d-d484471a1b02",
+            "colId": "a0fd8945-8b02-4c56-9b43-cf69341ca90d",
+            "containerId": "5c82e899-a2ef-499c-b2e5-dc6c13a61110",
+            "name": "get invoice detail by id",
+            "url": "localhost:3000/invoicedetail/get/645c19930eeaa13a1799ee1e",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-05-11T03:51:35.455Z",
+            "modified": "2023-05-11T03:56:33.016Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "db3bc962-bf1a-4d92-a0d6-f9ba8e54f2e7",
+            "colId": "a0fd8945-8b02-4c56-9b43-cf69341ca90d",
+            "containerId": "5c82e899-a2ef-499c-b2e5-dc6c13a61110",
+            "name": "get invoices details",
+            "url": "localhost:3000/invoicedetail/get",
+            "method": "GET",
+            "sortNum": 40000,
+            "created": "2023-05-10T22:24:14.035Z",
+            "modified": "2023-05-10T22:24:57.991Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "d7ece5b4-2531-4cac-931b-e31fe88f8e95",
+            "colId": "a0fd8945-8b02-4c56-9b43-cf69341ca90d",
+            "containerId": "5c82e899-a2ef-499c-b2e5-dc6c13a61110",
+            "name": "delete invoice detail",
+            "url": "localhost:3000/invoicedetail/delete/645c19290eeaa13a1799ee1a",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2023-05-10T22:32:04.196Z",
+            "modified": "2023-05-10T22:40:11.808Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "ce99bff9-5e5f-440f-91d8-b356f44428e6",
+            "colId": "a0fd8945-8b02-4c56-9b43-cf69341ca90d",
+            "containerId": "5c82e899-a2ef-499c-b2e5-dc6c13a61110",
+            "name": "update invoice detail",
+            "url": "localhost:3000/invoicedetail/update/645c19930eeaa13a1799ee1c",
+            "method": "PUT",
+            "sortNum": 60000,
+            "created": "2023-05-10T22:48:12.748Z",
+            "modified": "2023-05-10T22:56:49.630Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "subTotalAccount",
+                        "value": "100"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "4afc95cc-550d-4eff-a75a-126ce5b754f3",
+            "colId": "a0fd8945-8b02-4c56-9b43-cf69341ca90d",
+            "containerId": "96b57c8b-e7d4-4d61-9e7f-d4cb38078f95",
+            "name": "add additional service to invoice detail",
+            "url": "localhost:3000/invoicedetail/addas/645c19930eeaa13a1799ee1e",
+            "method": "PUT",
+            "sortNum": 70000,
+            "created": "2023-05-10T22:58:15.335Z",
+            "modified": "2023-05-10T23:56:31.597Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "additionalServices",
+                        "value": "222"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "eae40f23-45d4-4cd3-825e-eca53bc6931c",
+            "colId": "a0fd8945-8b02-4c56-9b43-cf69341ca90d",
+            "containerId": "96b57c8b-e7d4-4d61-9e7f-d4cb38078f95",
+            "name": "delete additional service to invoice detail",
+            "url": "localhost:3000/invoicedetail/deleteas/645c19930eeaa13a1799ee1e",
+            "method": "PUT",
+            "sortNum": 90000,
+            "created": "2023-05-10T23:26:09.628Z",
+            "modified": "2023-05-10T23:54:06.844Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "additionalServices",
+                        "value": "1111"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "ceb0ee50-37cd-4274-9904-722c216cd2bb",
+            "colId": "a0fd8945-8b02-4c56-9b43-cf69341ca90d",
+            "containerId": "96b57c8b-e7d4-4d61-9e7f-d4cb38078f95",
+            "name": "get additional services of invoice detail",
+            "url": "localhost:3000/invoicedetail/getas/645c19930eeaa13a1799ee1e",
+            "method": "GET",
+            "sortNum": 100000,
+            "created": "2023-05-10T23:57:50.252Z",
+            "modified": "2023-05-11T00:09:23.814Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "b068db89-8959-4b2d-b7f1-d8c64de3bf81",
+            "colId": "a0fd8945-8b02-4c56-9b43-cf69341ca90d",
+            "containerId": "17dfbaad-da4f-4ea1-bc96-5bd2517e8194",
+            "name": "add event to invoice detail",
+            "url": "localhost:3000/invoicedetail/addevent/645c19930eeaa13a1799ee1e",
+            "method": "PUT",
+            "sortNum": 120000,
+            "created": "2023-05-11T03:21:13.847Z",
+            "modified": "2023-05-11T03:36:42.418Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "event",
+                        "value": "113"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "23d5ea2d-6cc8-48bc-9681-99ef7d8ae88c",
+            "colId": "a0fd8945-8b02-4c56-9b43-cf69341ca90d",
+            "containerId": "17dfbaad-da4f-4ea1-bc96-5bd2517e8194",
+            "name": "get event to invoice detail",
+            "url": "localhost:3000/invoicedetail/getevents/645c19930eeaa13a1799ee1e",
+            "method": "GET",
+            "sortNum": 130000,
+            "created": "2023-05-11T03:32:33.351Z",
+            "modified": "2023-05-11T03:32:59.783Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "84fd8d96-342b-4c0f-a667-87814a473b5a",
+            "colId": "a0fd8945-8b02-4c56-9b43-cf69341ca90d",
+            "containerId": "17dfbaad-da4f-4ea1-bc96-5bd2517e8194",
+            "name": "delete event to invoice detail",
+            "url": "localhost:3000/invoicedetail/deleteevent/645c19930eeaa13a1799ee1e",
+            "method": "PUT",
+            "sortNum": 140000,
+            "created": "2023-05-11T03:37:08.541Z",
+            "modified": "2023-05-11T03:44:39.278Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "event",
+                        "value": "111"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "ae41d7ee-084e-419a-bd70-3dc509c9c605",
+            "colId": "a0fd8945-8b02-4c56-9b43-cf69341ca90d",
+            "containerId": "a78aa8d6-e191-47d7-b33d-c874b4cb3364",
+            "name": "get bills",
+            "url": "localhost:3000/bill/get",
+            "method": "GET",
+            "sortNum": 150000,
+            "created": "2023-05-15T21:49:58.853Z",
+            "modified": "2023-05-15T21:50:19.381Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "48b33003-00e9-41ac-944e-8faf4508dc72",
+            "colId": "a0fd8945-8b02-4c56-9b43-cf69341ca90d",
+            "containerId": "a78aa8d6-e191-47d7-b33d-c874b4cb3364",
+            "name": "add bill",
+            "url": "localhost:3000/bill/add",
+            "method": "POST",
+            "sortNum": 160000,
+            "created": "2023-05-15T21:50:32.348Z",
+            "modified": "2023-05-15T22:00:36.188Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "NIT",
+                        "value": "1111"
+                    },
+                    {
+                        "name": "invoiceDetail",
+                        "value": "645c6691ed15a862cf1ef0c1"
+                    }
+                ]
+            },
+            "tests": []
+        },
+        {
+            "_id": "6d6d54d3-e27e-48ab-83c7-b11eccc478e4",
+            "colId": "a0fd8945-8b02-4c56-9b43-cf69341ca90d",
+            "containerId": "a78aa8d6-e191-47d7-b33d-c874b4cb3364",
+            "name": "get bill by id",
+            "url": "localhost:3000/bill/get/6462a9bbbdbcb54ad637b25f",
+            "method": "GET",
+            "sortNum": 170000,
+            "created": "2023-05-15T21:51:36.954Z",
+            "modified": "2023-05-15T21:55:28.182Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "5c39ab54-4698-4db4-a410-c02490f011e0",
+            "colId": "a0fd8945-8b02-4c56-9b43-cf69341ca90d",
+            "containerId": "a78aa8d6-e191-47d7-b33d-c874b4cb3364",
+            "name": "update bill",
+            "url": "localhost:3000/bill/update/6462a9bbbdbcb54ad637b25f",
+            "method": "PUT",
+            "sortNum": 180000,
+            "created": "2023-05-15T21:51:58.346Z",
+            "modified": "2023-05-15T21:56:52.676Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "formencoded",
+                "raw": "",
+                "form": [
+                    {
+                        "name": "NIT",
+                        "value": "222"
+                    }
+                ]
+            },
+            "tests": []
+        }
+    ]
+}

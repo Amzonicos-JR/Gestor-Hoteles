@@ -14,7 +14,7 @@ const port = process.env.PORT || 3500;
 // Routes
 /* const accountRoutes = require('../src/account/account.routes'); */
 const invoiceDetailRoutes = require('../src/invoiceDetail/invoiceDetail.routes')
-
+const billRoutes = require('../src/bill/bill.routes')
 //CONFIGURAR EL SERVIDOR HTTP DE EXPRESS
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
@@ -25,6 +25,7 @@ app.use(morgan('dev'));
 // Ruta
 /* app.use('/user', userRoutes); */
 app.use('/invoicedetail', invoiceDetailRoutes)
+app.use('/bill', billRoutes)
 
 
 //Función donde se levanta el servidor

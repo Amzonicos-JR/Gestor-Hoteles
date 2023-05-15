@@ -1,9 +1,6 @@
 'use strict'
+const Bill = require('../bill/bill.model')
 const InvoiceDetail = require('./invoiceDetail.model')
-
-exports.test = (req, res)=>{
-    return res.send({message: 'test is running ( // ^ w ^// )'})
-}
 
 exports.add = async(req, res)=>{
     try{    
@@ -52,6 +49,8 @@ exports.delete = async(req, res)=>{
         if(!existInvoiceDetail) return res.status(404).send({message: 'invoice datail not found'})
 
         //si ya esta asignado a una factura no se pueda eliminar 
+        let existBill = await Bill.findOne({invoiceDetail: idInvoiceDetail})
+        if(existBill) return res.send({message: 'The invoice detail exist in a bill'})
 
         let deletedInvoiceDetail = await InvoiceDetail.findOneAndDelete({_id: idInvoiceDetail})
         return res.send({message: 'Deleted invoice detail successfully', deletedInvoiceDetail})

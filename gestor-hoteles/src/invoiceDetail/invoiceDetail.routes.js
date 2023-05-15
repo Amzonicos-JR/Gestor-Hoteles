@@ -4,8 +4,6 @@ const express = require('express')
 const api = express.Router()
 const invoiceDetailController = require('./invoiceDetail.controller')
 
-//rutas publicas
-api.get('/test', invoiceDetailController.test)
 //rutas privadas
 api.get('/get', invoiceDetailController.get)
 api.get('/get/:id', invoiceDetailController.getId)
