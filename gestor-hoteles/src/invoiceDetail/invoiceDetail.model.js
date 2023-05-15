@@ -4,11 +4,13 @@ const mongoose = require("mongoose");
 
 const invoiceDetailSchema = mongoose.Schema({
     additionalServices: [{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Service',
         require: true,
       }],
     events: [{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Event',
         require: true,
       }],
     booking: {

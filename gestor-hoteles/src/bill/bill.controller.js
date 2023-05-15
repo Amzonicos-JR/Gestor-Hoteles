@@ -33,9 +33,14 @@ exports.add = async(req, res)=>{
         //verificar que invoice detail exists
         let existInvoiceDetail = await InvoiceDetail.findOne({_id: data.invoiceDetail})
         if(!existInvoiceDetail) return res.status(404).send({message: 'Invoice detail not found'})
+
+        //verificar que invoice detail no se encuentre en otra factura 
+        let existID = await Bill.findOne({invoiceDetail: data.invoiceDetail})
+        if(existID) return res.status(409).send({message: 'Invoice Detail is in use on another bill'})
+
         //fecha date.now
         data.date = Date.now()
-        //actualizar el total ---Pendiente 
+        data.Total = existInvoiceDetail.subTotalAccount
 
         let bill = new Bill(data)
         await bill.save()
