@@ -7,10 +7,9 @@ const {ensureAuth} = require('../services/authenticated')
 
 //Rutas Privadas 
 
-api.get('/get', ensureAuth,hotelController.getHotels)
-api.get('/get/:id', ensureAuth,hotelController.getHotel);
+api.get('/get', hotelController.getHotels)
+api.get('/getHotel/:id', ensureAuth,hotelController.getHotel);
 api.post('/add', ensureAuth,hotelController.createHotel)
-// api.put('/update/:id', ensureAuth,hotelController.updateService)
-// api.delete('/delete/:id', ensureAuth, hotelController.deleteHotel);
+api.delete('/delete/:id', ensureAuth,hotelController.deleteHotel);
 
 module.exports = api;

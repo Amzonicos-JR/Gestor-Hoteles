@@ -14,25 +14,28 @@ const hotelSchema = mongoose.Schema({
   services: [
     {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Service'
+        ref: 'Service',
+        required: true
     }
   ],
   events: [
     {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Event'
+        ref: 'Event',
+        required: true
     }
   ],
   rooms: [
     {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Room'
+        ref: 'Room',
+        required: true
     }
   ],
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    require: true
+    required: true
   }
 });
 
