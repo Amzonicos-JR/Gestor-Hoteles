@@ -6,7 +6,7 @@ exports.get = async(req, res)=>{
     try{
         let bills = await Bill.find()
             .populate('invoiceDetail')
-        return res.send({message: bills})
+        return res.send({bills})
     }catch(err){
         console.error(err)
         return res.status(500).send({message: 'Error to getting the bills'})
@@ -16,10 +16,10 @@ exports.get = async(req, res)=>{
 exports.getId = async(req, res)=>{
     try{
         let idBill = req.params.id
-        let existBill = await Bill.findOne({_id: idBill})
+        let bill = await Bill.findOne({_id: idBill})
             .populate('invoiceDetail')
-        if(!existBill) return res.status(404).send({message: 'Bill not found'})
-        return res.send({message: existBill})
+        if(!bill) return res.status(404).send({message: 'Bill not found'})
+        return res.send({bill})
     }catch(err){
         console.error(err)
         return res.status(500).send({message: 'Error to getting the bills'})

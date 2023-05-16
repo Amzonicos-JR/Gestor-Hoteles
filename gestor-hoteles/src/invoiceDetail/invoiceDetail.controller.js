@@ -24,7 +24,7 @@ exports.get = async(req, res)=>{
         let invoiceDetails = await InvoiceDetail.find()
         //Agregar los populate
 
-        return res.send({message: invoiceDetails})
+        return res.send({invoiceDetails})
     }catch(err){
         console.error(err)
         return res.status(500).send({message: 'Error to getting invoice datail'})
@@ -36,7 +36,7 @@ exports.getId = async(req, res)=>{
         let idInvoiceDetail = req.params.id
         let invoiceDetail = await InvoiceDetail.findOne({_id: idInvoiceDetail})
         if(!invoiceDetail) return res.status(404).send({message: 'Invoice detail not found'})
-        return res.send({message: invoiceDetail})
+        return res.send({invoiceDetail})
     }catch(err){
         console.error(err)
         return res.status(500).send({message: 'Error to getting invoice detail'})
@@ -85,11 +85,38 @@ exports.getas = async(req, res)=>{
         let idInvoiceDetail = req.params.id
         let invoiceDetail = await InvoiceDetail.findOne({_id: idInvoiceDetail})
         if(!invoiceDetail) return res.status(404).send({message: 'Invoice detail not found'})
-        return res.send({message: invoiceDetail.additionalServices})
+        let additionalServices = invoiceDetail.additionalServices
+        return res.send({additionalServices})
     }catch(err){
         console.error(err)
         return res.status(500).send({message: 'Error to getting additional services to the invoice detail'})
     }
+}
+
+exports.getasnot = async(req, res)=>{
+    try{
+        let idInvoiceDetail = req.params.id
+        let servicesNot = []
+        //verificar que el id exista
+        let existInvoiceDetail = await InvoiceDetail.findOne({_id: idInvoiceDetail})
+        if(!existInvoiceDetail) return res.status(404).send({message: 'Invoice detail not found'})
+        //obtener los servicios
+        let services = await Service.find()
+        //obtener lo servicio que tiene el invoice detail
+
+        //compara lo que no tiene y guardarlo en una variable 
+        for (let service of services) {
+            if (!existInvoiceDetail.additionalServices.includes(service._id)) {
+              servicesNot.push(service);
+            }
+          }
+
+        return res.send({servicesNot})
+    }catch(err){
+        console.error(err)
+        return res.status(500).send({message: 'Error to getting additional services not on to the invoice detail'})        
+    }
+
 }
 
 exports.addas = async(req, res)=>{
@@ -165,11 +192,39 @@ exports.getEvents = async(req, res)=>{
         
         let existInvoiceDetail = await InvoiceDetail.findOne({_id: idInvoiceDetail})
         if(!existInvoiceDetail) return res.status(404).send({message: 'Invoice detail not found'})
-        return res.send({message: existInvoiceDetail.events})
+        let events = existInvoiceDetail.events
+        return res.send({events})
     }catch(err){
         console.error(err)
         return res.status(500).send({message: 'Error to getting event to the invoice detail'})
     }
+}
+
+exports.getEventsNot = async(req, res)=>{
+    try{
+        let idInvoiceDetail = req.params.id
+        let eventsNot = []
+
+        //verificar que el id exista
+        let existInvoiceDetail = await InvoiceDetail.findOne({_id: idInvoiceDetail})
+        if(!existInvoiceDetail) return res.status(404).send({message: 'Invoice detail not found'})        
+
+        let events = await Event.find()
+        //obtener lo servicio que tiene el invoice detail
+
+        //compara lo que no tiene y guardarlo en una variable 
+        for (let event of events) {
+            if (!existInvoiceDetail.events.includes(event._id)) {
+              eventsNot.push(event);
+            }
+          }
+
+        return res.send({eventsNot})        
+    }catch(err){
+        console.error(err)
+        return res.status(500).send({message: 'Error to getting event not on to the invoice detail'})        
+    }
+
 }
 
 exports.addEvent = async(req, res)=>{

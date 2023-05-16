@@ -13,10 +13,12 @@ api.delete('/delete/:id', invoiceDetailController.delete)
 
 //additional services
 api.get('/getas/:id', invoiceDetailController.getas)
+api.get('/getasnot/:id', invoiceDetailController.getasnot)
 api.put('/addas/:id', invoiceDetailController.addas)
 api.put('/deleteas/:id', invoiceDetailController.deleteas)
 //events 
 api.get('/getevents/:id', invoiceDetailController.getEvents)
+api.get('/geteventsnot/:id', invoiceDetailController.getEventsNot)
 api.put('/addevent/:id', invoiceDetailController.addEvent)
 api.put('/deleteevent/:id', invoiceDetailController.deleteEvent)
 
