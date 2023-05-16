@@ -46,7 +46,7 @@ exports.getHotel = async(req, res)=>{
 }
 
 exports.deleteHotel = async (req, res) => {
-  const { hotelId } = req.params;
+  let hotelId = req.params.id;
   try {
     const hotel = await Hotel.findOne({ _id: hotelId });
     if (!hotel) {
