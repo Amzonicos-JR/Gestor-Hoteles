@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "Gestor Hoteles",
-    "dateExported": "2023-05-16T02:28:53.236Z",
+    "dateExported": "2023-05-16T05:51:48.518Z",
     "version": "1.1",
     "folders": [
         {
@@ -515,7 +515,7 @@
             "method": "POST",
             "sortNum": 210000,
             "created": "2023-05-16T02:02:01.188Z",
-            "modified": "2023-05-16T02:21:08.135Z",
+            "modified": "2023-05-16T05:32:18.853Z",
             "headers": [
                 {
                     "name": "Authorization",
@@ -529,15 +529,15 @@
                 "form": [
                     {
                         "name": "DPI",
-                        "value": "8739731728192"
+                        "value": "478766453"
                     },
                     {
                         "name": "name",
-                        "value": "Lalo"
+                        "value": "Jose"
                     },
                     {
                         "name": "surname",
-                        "value": "Gonzales"
+                        "value": "Cheley"
                     },
                     {
                         "name": "age",
@@ -630,11 +630,11 @@
             "method": "POST",
             "sortNum": 230000,
             "created": "2023-05-16T02:19:27.856Z",
-            "modified": "2023-05-16T02:22:06.368Z",
+            "modified": "2023-05-16T05:49:37.829Z",
             "headers": [
                 {
                     "name": "Authorization",
-                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDYyZTU0MzM4Mjg0NDgyMWE2NGRjOWUiLCJuYW1lIjoiQW16b25pY28iLCJzdXJuYW1lIjoiSnVuaW9ycyIsInBob25lIjoxMjM0NTY3OCwicm9sZSI6IkFETUlOQU0iLCJpYXQiOjE2ODQyMDM0OTksImV4cCI6MTY4NDIxMDY5OX0.T93L-VKqh1oekBrduLF9S81ZXzTGN7_ryQcAoTSylGE"
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDYyZTU0MzM4Mjg0NDgyMWE2NGRjOWUiLCJuYW1lIjoiQW16b25pY28iLCJzdXJuYW1lIjoiSnVuaW9ycyIsInBob25lIjoxMjM0NTY3OCwicm9sZSI6IkFETUlOQU0iLCJpYXQiOjE2ODQyMTQ5NjIsImV4cCI6MTY4NDIyMjE2Mn0.tIlTxvFJ6kxOQ3EdWbUDlw23kneKeZxT0Vorp6wA4YE"
                 }
             ],
             "params": [],
@@ -644,15 +644,39 @@
                 "form": [
                     {
                         "name": "name",
-                        "value": "Hotel California"
+                        "value": "Hotel Cayalá"
                     },
                     {
                         "name": "direction",
                         "value": "Zona 14"
                     },
                     {
+                        "name": "services",
+                        "value": "6462e805382844821a64dcb4"
+                    },
+                    {
+                        "name": "events",
+                        "value": "6462e56e382844821a64dca2"
+                    },
+                    {
+                        "name": "rooms",
+                        "value": "6462e7a2382844821a64dcad"
+                    },
+                    {
                         "name": "user",
                         "value": "6462e894382844821a64dcb6"
+                    },
+                    {
+                        "name": "services",
+                        "value": "6462e7f7382844821a64dcb1"
+                    },
+                    {
+                        "name": "events",
+                        "value": "6462e579382844821a64dca5"
+                    },
+                    {
+                        "name": "rooms",
+                        "value": "6462e75d382844821a64dcab"
                     }
                 ]
             },
@@ -663,15 +687,15 @@
             "colId": "f894479b-cf47-4379-b25f-a313f1e32374",
             "containerId": "8225976d-6625-47c7-895e-7bcfa452be5b",
             "name": "delete-hotel",
-            "url": "/hotel/delete/6462e8ce382844821a64dcbd",
+            "url": "/hotel/delete/646319712ea0a85eeacf63fd",
             "method": "DELETE",
             "sortNum": 240000,
             "created": "2023-05-16T02:21:51.430Z",
-            "modified": "2023-05-16T02:23:28.725Z",
+            "modified": "2023-05-16T05:49:56.616Z",
             "headers": [
                 {
                     "name": "Authorization",
-                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDYyZTU0MzM4Mjg0NDgyMWE2NGRjOWUiLCJuYW1lIjoiQW16b25pY28iLCJzdXJuYW1lIjoiSnVuaW9ycyIsInBob25lIjoxMjM0NTY3OCwicm9sZSI6IkFETUlOQU0iLCJpYXQiOjE2ODQyMDM0OTksImV4cCI6MTY4NDIxMDY5OX0.T93L-VKqh1oekBrduLF9S81ZXzTGN7_ryQcAoTSylGE"
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDYyZTU0MzM4Mjg0NDgyMWE2NGRjOWUiLCJuYW1lIjoiQW16b25pY28iLCJzdXJuYW1lIjoiSnVuaW9ycyIsInBob25lIjoxMjM0NTY3OCwicm9sZSI6IkFETUlOQU0iLCJpYXQiOjE2ODQyMTQ5NjIsImV4cCI6MTY4NDIyMjE2Mn0.tIlTxvFJ6kxOQ3EdWbUDlw23kneKeZxT0Vorp6wA4YE"
                 }
             ],
             "params": [],
