@@ -12,7 +12,12 @@ const app = express();
 const port = process.env.PORT || 3500;
 
 // Routes
-const roomRoutes = require('../src/room/room.routes')
+const eventRoutes = require('../src/events_/events.routes')
+const serviceRoutes = require('../src/services_/services.routes')
+const roomRoutes = require ('../src/room/room.routes')
+const userRoutes = require('../src/user/user.routes')
+const hotelRoutes = require('../src/hotel/hotel.routes')
+const reservationRoutes = require('../src/reservation/reservation.routes')
 
 //CONFIGURAR EL SERVIDOR HTTP DE EXPRESS
 app.use(express.urlencoded({extended: false}));
@@ -21,8 +26,14 @@ app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
 
-// Rutas
-app.use('/room', roomRoutes);
+// Ruta
+app.use('/event', eventRoutes);
+app.use('/service', serviceRoutes)
+app.use('/room', roomRoutes)
+app.use('/user', userRoutes)
+app.use('/hotel', hotelRoutes)
+app.use('/reservation', reservationRoutes)
+
 
 //Función donde se levanta el servidor
 exports.initServer = ()=>{

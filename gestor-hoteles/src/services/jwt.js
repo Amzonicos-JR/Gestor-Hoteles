@@ -7,13 +7,11 @@ exports.createToken = async(user)=>{
     try {
         let payload = {
             sub: user._id,
-            dpi: user.dpi,
             name: user.name,
             surname: user.surname,
-            age: user.age,
+            username: user.username,
             phone: user.phone,
-            email: user.email,
-            role: user.role,   
+            role: user.role,    //Math floor devuelve valor entero
             iat: Math.floor(Date.now() / 1000),// fecha actual en formato UNIX | Segundos
             exp: Math.floor(Date.now() / 1000) + (60 * 120)
         }
