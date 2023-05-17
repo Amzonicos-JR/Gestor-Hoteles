@@ -2,7 +2,7 @@
 
 const User = require('./user.model');
 const Reservation = require('../reservation/reservation.model');
-const Hotel = require('../hotel/hotel.model')
+const Hotel = require('../hotel/hotel.model');
 const { validateData, encrypt, checkPassword } = require('../utils/validate');
 const { createToken } = require('../services/jwt');
 const userInfo = ['DPI', 'name', 'surname', 'age', 'phone', 'email', 'role']
@@ -108,7 +108,7 @@ exports.delete = async (req, res) => {
             if(hotelesId == userId) return res.status(400).send({ message: 'User has hoteles, can not delete' });
         }
         let userDeleted = await User.findOneAndDelete({ _id: userId });
-        return res.send({ message: 'User deleted', userDeleted });        
+        return res.send({ message: 'User deleted', userDeleted });
     } catch (err) {
         console.error(err);
         return res.status(500).send({ message: 'Error deleting user' })
