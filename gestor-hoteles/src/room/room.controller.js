@@ -15,7 +15,6 @@ exports.addRoom = async (req, res) => {
     try {
         let data = req.body;
         let params = {
-            dpi: data.dpi,
             numberRoom: data.numberRoom,
             amountPeople: data.amountPeople,
             typeRoom: data.typeRoom,

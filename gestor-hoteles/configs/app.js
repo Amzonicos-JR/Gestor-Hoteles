@@ -17,6 +17,7 @@ const serviceRoutes = require('../src/services_/services.routes')
 const roomRoutes = require ('../src/room/room.routes')
 const userRoutes = require('../src/user/user.routes')
 const hotelRoutes = require('../src/hotel/hotel.routes')
+const reservationRoutes = require('../src/reservation/reservation.routes')
 
 //CONFIGURAR EL SERVIDOR HTTP DE EXPRESS
 app.use(express.urlencoded({extended: false}));
@@ -31,6 +32,7 @@ app.use('/service', serviceRoutes)
 app.use('/room', roomRoutes)
 app.use('/user', userRoutes)
 app.use('/hotel', hotelRoutes)
+app.use('/reservation', reservationRoutes)
 
 
 //Función donde se levanta el servidor
