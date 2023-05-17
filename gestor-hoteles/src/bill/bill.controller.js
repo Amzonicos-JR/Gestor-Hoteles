@@ -62,7 +62,7 @@ exports.update = async(req, res)=>{
             {new: true}
         )
         if(!updatedBill) return res.status(404).send({message: 'Bill not found'})
-        return res.send({message: updatedBill})
+        return res.send({message: 'Updated bill successfully'})
     }catch(err){
         console.error(err)
         return res.status(500).send({message: 'Error to updated the bill'})

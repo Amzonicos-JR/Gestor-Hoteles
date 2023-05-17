@@ -43,6 +43,21 @@ exports.getId = async(req, res)=>{
     }
 }
 
+exports.getDisused = async(req, res)=>{
+    try{
+        //obtener todos los invoces details
+        let usedInvoiceDetailIds = await Bill.distinct('invoiceDetail');
+
+        // Obtener los documentos de InvoiceDetail que no están siendo utilizados
+        let unusedInvoiceDetails = await InvoiceDetail.find({ _id: { $nin: usedInvoiceDetailIds } });
+        
+        return res.send({unusedInvoiceDetails})
+    }catch(err){
+        console.error(err)
+        return res.status(500).send({message: 'Error to getting invoice detail disused'})
+    }
+}
+
 exports.delete = async(req, res)=>{
     try{
         let idInvoiceDetail = req.params.id 
@@ -83,7 +98,7 @@ exports.update = async(req, res)=>{
 exports.getas = async(req, res)=>{
     try{
         let idInvoiceDetail = req.params.id
-        let invoiceDetail = await InvoiceDetail.findOne({_id: idInvoiceDetail})
+        let invoiceDetail = await InvoiceDetail.findOne({_id: idInvoiceDetail}).populate('additionalServices')
         if(!invoiceDetail) return res.status(404).send({message: 'Invoice detail not found'})
         let additionalServices = invoiceDetail.additionalServices
         return res.send({additionalServices})
@@ -133,6 +148,10 @@ exports.addas = async(req, res)=>{
         let existService = await Service.findOne({_id: data.additionalServices})
         if(!existService) return res.status(404).send({message: 'Service not found'})
 
+        //verificar que el invoice detail no este en una factura 
+        let existBill = await Bill.findOne({invoiceDetail: idInvoiceDetail})
+        if(existBill) return res.status(409).send({message: 'Invoice detail in use a bill'})
+
         //verificar que el servicio ya lo haya adquirido 
         let existAdditionalService = await InvoiceDetail.findOne({_id: idInvoiceDetail, additionalServices: data.additionalServices})
         if(existAdditionalService) return res.status(409).send({message: 'Additional service already exist'})
@@ -166,12 +185,18 @@ exports.deleteas = async(req, res)=>{
         let existService = await Service.findOne({_id: data.additionalServices})
         if(!existService) return res.status(404).send({message: 'Service not found'})
 
+        //verificar que el invoice detail no este en una factura 
+        let existBill = await Bill.findOne({invoiceDetail: idInvoiceDetail})
+        if(existBill) return res.status(409).send({message: 'Invoice detail in use a bill'})
+
         //verificar que tenga el servicio
         let existAdditionalService = await InvoiceDetail.findOne({_id: idInvoiceDetail, additionalServices: data.additionalServices})
         if(!existAdditionalService) return res.status(404).send({message: 'Additional service not found'})
 
         //restarlo al total 
         total = existInvoiceDetail.subTotalAccount - existService.price
+
+        if(total <= 0) total=0
 
         await InvoiceDetail.updateOne(
             {_id: idInvoiceDetail},
@@ -190,7 +215,7 @@ exports.getEvents = async(req, res)=>{
     try{
         let idInvoiceDetail = req.params.id
         
-        let existInvoiceDetail = await InvoiceDetail.findOne({_id: idInvoiceDetail})
+        let existInvoiceDetail = await InvoiceDetail.findOne({_id: idInvoiceDetail}).populate('events')
         if(!existInvoiceDetail) return res.status(404).send({message: 'Invoice detail not found'})
         let events = existInvoiceDetail.events
         return res.send({events})
@@ -241,6 +266,10 @@ exports.addEvent = async(req, res)=>{
         let existEvents = await Event.findOne({_id: data.event})
         if(!existEvents) return res.status(404).send({message: 'Event not found'})
 
+        //verificar que el invoice detail no este en una factura 
+        let existBill = await Bill.findOne({invoiceDetail: idInvoiceDetail})
+        if(existBill) return res.status(409).send({message: 'Invoice detail in use a bill'})
+
         //verificar que el evento ya lo haya adquirido 
         let existEvent = await InvoiceDetail.findOne({_id: idInvoiceDetail, events: data.event})
         if(existEvent) return res.status(409).send({message: 'Event already exist'})
@@ -273,17 +302,17 @@ exports.deleteEvent = async(req, res)=>{
         let existEvents = await Event.findOne({_id: data.event})
         if(!existEvents) return res.status(404).send({message: 'Event not found'})
 
+        //verificar que el invoice detail no este en una factura 
+        let existBill = await Bill.findOne({invoiceDetail: idInvoiceDetail})
+        if(existBill) return res.status(409).send({message: 'Invoice detail in use a bill'})
+                
         //verificar que tenga el evento
         let existEvent = await InvoiceDetail.findOne({_id: idInvoiceDetail, events: data.event})
         if(!existEvent) return res.status(404).send({message: 'Event not found to the invoice detail'})
 
-        //obtener el precio del evento 
-        console.log(existEvents.price)
-        //obtener el subtotal 
-        console.log(existInvoiceDetail.subTotalAccount)
         //a total setearle la resta de evento al subtotal  
         total = existInvoiceDetail.subTotalAccount - existEvents.price
-        console.log(total)
+        if(total <= 0) total=0
 
         await InvoiceDetail.updateOne(
             {_id: idInvoiceDetail},

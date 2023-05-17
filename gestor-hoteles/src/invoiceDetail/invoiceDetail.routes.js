@@ -7,6 +7,7 @@ const invoiceDetailController = require('./invoiceDetail.controller')
 //rutas privadas
 api.get('/get', invoiceDetailController.get)
 api.get('/get/:id', invoiceDetailController.getId)
+api.get('/getdisused', invoiceDetailController.getDisused)
 api.post('/add', invoiceDetailController.add)
 api.put('/update/:id', invoiceDetailController.update)
 api.delete('/delete/:id', invoiceDetailController.delete)
