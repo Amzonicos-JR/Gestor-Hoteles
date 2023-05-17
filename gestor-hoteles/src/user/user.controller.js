@@ -1,6 +1,8 @@
 'use strict'
 
 const User = require('./user.model');
+const Reservation = require('../reservation/reservation.model');
+const Hotel = require('../hotel/hotel.model');
 const { validateData, encrypt, checkPassword } = require('../utils/validate');
 const { createToken } = require('../services/jwt');
 const userInfo = ['DPI', 'name', 'surname', 'age', 'phone', 'email', 'role']
@@ -18,7 +20,7 @@ exports.adminAmzonicos = async (req, res) => {
             role: 'ADMINAM'
         }
         data.password = await encrypt(data.password)
-        let existsUser = await User.findOne({name: 'Amzonico'})
+        let existsUser = await User.findOne({ name: 'Amzonico' })
         if (existsUser) return console.log('Admin already created');
         let defaultAM = new User(data);
         await defaultAM.save();
@@ -92,14 +94,27 @@ exports.update = async (req, res) => {
 exports.delete = async (req, res) => {
     try {
         let userId = req.params.id;
+        //Validar que un usuario tenga un reservacion y que este no se pueda eliminar
+        let existUser = await User.findOne({ _id: userId });
+        if (existUser) {
+            let reservations = await Reservation.find().select('user');
+            let reservationsId = reservations.map(reservation => reservation.user);
+            if (reservationsId == userId) return res.status(400).send({ message: 'User has reservations, can not delete' });
+        }
+        // Validar que un usuario no sea encargado de hotel al ser eliminado
+        if(existUser){
+            let hoteles = await Hotel.find().select('user');
+            let hotelesId = hoteles.map(hoteles => hoteles.user);
+            if(hotelesId == userId) return res.status(400).send({ message: 'User has hoteles, can not delete' });
+        }
         let userDeleted = await User.findOneAndDelete({ _id: userId });
-        if (!userDeleted) return res.send({ message: 'Account not found and not deleted' });
-        return res.send({ message: `Account with username ${userDeleted.username} deleted sucessfully` });
+        return res.send({ message: 'User deleted', userDeleted });
     } catch (err) {
         console.error(err);
-        return res.status(500).send({ message: 'Error not deleted' });
+        return res.status(500).send({ message: 'Error deleting user' })
     }
 }
+
 
 exports.saveAdmins = async (req, res) => {
     try {
@@ -121,7 +136,7 @@ exports.saveAdmins = async (req, res) => {
 //Para Hoteles (SUPAMGUN)
 exports.getAdmins = async (req, res) => {
     try {
-        let users = await User.find({role: 'ADMIN'}).select(userInfo)
+        let users = await User.find({ role: 'ADMIN' }).select(userInfo)
         return res.send({ message: 'Users found', users })
     } catch (err) {
         console.error(err);
@@ -131,8 +146,8 @@ exports.getAdmins = async (req, res) => {
 
 exports.getUsers = async (req, res) => {
     try {
-        let users = await User.find({role: 'CLIENT'}).select(userInfo);
-        let usersAdmins = await User.find({role: 'ADMIN'}).select(userInfo);
+        let users = await User.find({ role: 'CLIENT' }).select(userInfo);
+        let usersAdmins = await User.find({ role: 'ADMIN' }).select(userInfo);
         return res.send({ message: 'Users found', users, usersAdmins })
     } catch (err) {
         console.error(err);
