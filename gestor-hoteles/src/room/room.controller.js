@@ -77,3 +77,13 @@ exports.getRooms = async (req, res) => {
         return res.status(500).send({ message: 'Error getting rooms' });
     }
 }
+
+// -Buscar x id
+exports.getRoomsID = async (req, res) => {
+    try {
+        let room = await Room.findOne({_id: req.params.id});
+        return res.send({message: 'Room found', room})
+    } catch (error) {
+        return res.status(500).send({ message: 'Error getting rooms' });
+    }
+}

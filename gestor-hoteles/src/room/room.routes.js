@@ -11,6 +11,7 @@ api.post('/add-room', roomController.addRoom)
 api.put('/update-room/:id', roomController.updateRoom)
 api.delete('/delete-room/:id', roomController.deleteRoom)
 api.get('/get-rooms', roomController.getRooms)
+api.get('/get-id/:id', roomController.getRoomsID)
 
 
 module.exports = api;
