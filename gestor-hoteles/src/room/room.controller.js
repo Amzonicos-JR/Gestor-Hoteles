@@ -39,7 +39,7 @@ exports.updateRoom = async (req, res) => {
     try {
         let roomId = req.params.id;
         let data = req.body;
-        if (data.typeRoom || Object.entries(data).length === 0) return res.status(400).send({ message: 'Have submitted some data that cannot be updated' });
+        if (data.typeRoom || data.status || Object.entries(data).length === 0) return res.status(400).send({ message: 'Have submitted some data that cannot be updated' });
         let roomUpdate = await Room.findOneAndUpdate(
             { _id: roomId },
             data,

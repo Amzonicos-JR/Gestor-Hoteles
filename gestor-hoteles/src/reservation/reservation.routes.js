@@ -6,11 +6,12 @@ const reservationController = require ('./reservation.controller')
 const { ensureAuth} = require('../services/authenticated');
 
 //Rutas Privadas [ADMIN-APP]
-api.get('/test-reservation', ensureAuth, reservationController.test)
-api.post('/add-reservation', ensureAuth,reservationController.addReservation)
-api.put('/update-reservation/:id', ensureAuth, reservationController.updateReservation);
-api.delete('/cancel-reservation/:id', ensureAuth, reservationController.cancelReservation);
-api.get('/get-reservations', ensureAuth, reservationController.getReservations)
+api.get('/test-reservation', reservationController.test)
+api.post('/add-reservation',reservationController.addReservation)
+api.put('/update-reservation/:id', reservationController.updateReservation);
+api.delete('/cancel-reservation/:id', reservationController.cancelReservation);
+api.get('/get-reservations', reservationController.getReservations);
+// api.get('/get-reservations-NOIV', reservationController.getReservationsNoInvoice);
 
 
 module.exports = api;

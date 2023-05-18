@@ -60,8 +60,12 @@ exports.login = async (req, res) => {
         if (msg) return res.status(400).send(msg)
         let user = await User.findOne({ email: data.email });
         if (user && await checkPassword(data.password, user.password)) {
+            let userLogged = {
+                _id: user.id,
+                role: user.role
+            }
             let token = await createToken(user)
-            return res.send({ message: 'User logged sucessfully', token });
+            return res.send({ message: 'User logged sucessfully', token, userLogged });
         }
         return res.status(401).send({ message: 'Invalid credentials' });
     } catch (err) {
@@ -69,6 +73,7 @@ exports.login = async (req, res) => {
         return res.status(500).send({ message: 'Error, not logged' });
     }
 }
+
 
 exports.update = async (req, res) => {
     try {
@@ -102,10 +107,10 @@ exports.delete = async (req, res) => {
             if (reservationsId == userId) return res.status(400).send({ message: 'User has reservations, can not delete' });
         }
         // Validar que un usuario no sea encargado de hotel al ser eliminado
-        if(existUser){
+        if (existUser) {
             let hoteles = await Hotel.find().select('user');
             let hotelesId = hoteles.map(hoteles => hoteles.user);
-            if(hotelesId == userId) return res.status(400).send({ message: 'User has hoteles, can not delete' });
+            if (hotelesId == userId) return res.status(400).send({ message: 'User has hoteles, can not delete' });
         }
         let userDeleted = await User.findOneAndDelete({ _id: userId });
         return res.send({ message: 'User deleted', userDeleted });
