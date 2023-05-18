@@ -4,11 +4,15 @@ const Reservation = require('./reservation.model')
 const Hotel = require('../hotel/hotel.model')
 const Rooms = require('../room/room.model')
 const { validateData } = require('../utils/validate')
+const Bill = require('../bill/bill.model')
+const InvoiceDetail = require('../invoiceDetail/invoiceDetail.model')
 
 // Función Test - [ADMIN APP]
 exports.test = (req, res) => {
     res.send({ message: 'Test function is running' });
 }
+
+// Room
 
 // -ADD RESERVATION-
 exports.addReservation = async (req, res) => {
@@ -21,29 +25,33 @@ exports.addReservation = async (req, res) => {
         let validate = validateData(params);
         if (validate) return res.status(404).send(validate);
         data.subTotal = 0;
-        console.log('hola')
         // Llegar hasta las habitaciones
         let habitacionesH = await Hotel.findById({ _id: data.hotel });
         // Habitaciones Propias del Hotel
         // let habitacionesH2 = await Rooms.findById({ _id: data.hotel },).select('rooms');
         let rooms = await Rooms.find({ _id: { $in: habitacionesH.rooms } }, { status: 'AVAILABLE' }).select('price');
-        console.log(rooms, 'Propias del hotel')
         // Validar que seleccione una habitacion
         let params2 = {
             rooms: data.rooms
         }
         let validate2 = validateData(params2);
         if (validate2) return res.status(404).send(validate2);
-
+        //Agregar las visitas al hotel
+        let hotel = await Hotel.findById({ _id: data.hotel }).select('visits');
+        let sumVis = 1;
+        let hotel2 = await Hotel.findOneAndUpdate(
+            { _id: data.hotel },
+            { $inc: { visits: sumVis } },
+            { new: true }
+        );
         // --- (SUBTOTAL - HABITACION) ----
         // Guardar el precio
         let priceH1 = await Rooms.findById({ _id: data.rooms }).select('price')
-        console.log('precio hotel', priceH1)
         // Precio
         let precio = priceH1.price;
         data.subTotal = (precio * data.cNoches);
-        // agregar id cliente del token
-        data.user = req.user.sub;
+        // AGREGAR ID CLIENTE 
+        data.user = data.user;
         // save
         let reservation = new Reservation(data);
         await reservation.save();
@@ -64,8 +72,8 @@ exports.updateReservation = async (req, res) => {
         let reservationId = req.params.id;
         let data = req.body;
         if (data.user || Object.entries(data).length === 0) return res.status(400).send({ message: 'Have submitted some data that cannot be updated' });
-        let reservation = await Reservation.findById({_id: reservationId}); 
-        let priceH1 = await Rooms.findById({ _id: reservation.rooms }).select('price')      
+        let reservation = await Reservation.findById({ _id: reservationId });
+        let priceH1 = await Rooms.findById({ _id: reservation.rooms }).select('price')
         // Precio
         let precio = priceH1.price;
         data.subTotal = (precio * data.cNoches);
@@ -86,9 +94,24 @@ exports.updateReservation = async (req, res) => {
 exports.cancelReservation = async (req, res) => {
     try {
         let reservationId = req.params.id;
-        let reservation = await Reservation.findById({_id: reservationId}).select('rooms');
-        console.log(reservation, 'akjlshdakljdlakdja')
-        let room = await Rooms.findByIdAndUpdate({_id: reservation.rooms}, {status: 'AVAILABLE'})
+        let reservation = await Reservation.findById({ _id: reservationId }).select('rooms');
+        let room = await Rooms.findByIdAndUpdate({ _id: reservation.rooms }, { status: 'AVAILABLE' })
+        //Quitarle la visita al hotel al cancelar la reservación
+        let reservationH = await Reservation.findById({ _id: reservationId }).select('hotel');
+        let hotel = await Hotel.findById({ _id: reservationH.hotel }).select('visits');
+        let hotel2 = await Hotel.findOneAndUpdate(
+            { _id: reservationH.hotel },
+            { $inc: { visits: -1 } }
+        )
+        // Verificar si existe un detalle factura
+        // DETALLE FACTURA SI EXISTE
+        let existInvoice = await InvoiceDetail.findOne({ booking: reservationId })
+        if (existInvoice) {
+            let existBill = await Bill.findOne({ invoiceDetail: existInvoice._id })
+            if (existBill) return res.send({ message: 'The invoice detail exist in a bill' })
+            let deletedInvoiceDetail = await InvoiceDetail.findOneAndDelete({ _id: existInvoice._id })
+            let reservationCancel = await Reservation.findOneAndDelete({ _id: reservationId })
+        }
         let reservationCancel = await Reservation.findOneAndDelete({ _id: reservationId })
         if (!reservationCancel) return res.status(404).send({ message: 'Reservation not found and not cancel' });
         return res.send({ message: 'Reservation cancel', reservationCancel: reservationCancel })
@@ -108,3 +131,27 @@ exports.getReservations = async (req, res) => {
         return res.status(500).send({ message: 'Error getting reservation' });
     }
 }
+
+// -Get Reservations (NO INVOICE DETAIL)-
+// exports.getReservationsNoInvoice = async (req, res) => {
+//     try {
+//         const reservacionesNoUtilizadas = await Reservation.aggregate([
+//             {
+//                 $lookup: {
+//                     from: 'InvoiceDetail',
+//                     localField: '_id',
+//                     foreignField: 'reservacionId',
+//                     as: 'booking'
+//                 }
+//             },
+//             {
+//                 $match: {
+//                     invoiceDetail: { $exists: false, $ne: null }// Filtra los documentos sin detalle de factura
+//                 }
+//             }
+//         ]);
+//         return res.send({ message: 'Reservations found', reservacionesNoUtilizadas })
+//     } catch (error) {
+
+//     }
+// }

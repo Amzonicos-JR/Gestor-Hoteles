@@ -32,6 +32,11 @@ const hotelSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
+  },
+  visits: {
+    type: Number,
+    default: 0,
+    required: false
   }
 },
   {

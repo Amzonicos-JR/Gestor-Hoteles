@@ -52,19 +52,17 @@ exports.createHotel = async (req, res) => {
 
 exports.searchHotel = async (req, res) => {
   try {
-    let params = {
-      name: req.body.name,
-    };
-    let validate = validateData(params);
-    if (validate) return res.status(400).send(validate);
-    let hotel = await Hotel.findOne({ name: params.name });
-    let hotels = await Hotel.find({
-      name: {
-        $regex: params.name,
-        $options: "i",
-      },
+    //Buscar el hotel por su nombre o direccion
+    let hotel = await Hotel.find({
+      $or: [
+        { name: { $regex: req.body.name, $options: "i" } },
+        { direction: { $regex: req.body.name, $options: "i" } },
+      ],
     });
-    return res.send({ hotels });
+    if (!hotel) {
+      return res.status(404).send({ message: "No hotels found" });
+    }
+    return res.status(200).send({ hotel });
   } catch (err) {
     console.error(err);
     return res.status(500).send({ message: "Error searching hotel" });
@@ -81,28 +79,6 @@ exports.getHotels = async (req, res) => {
   }
 };
 
-// Get de habitaciones por hotel
-// exports.getHotel = async (req, res) => {
-//   try {
-//     //Obtener el Id del hotel a buscar
-//     let hotelId = req.params.id;
-//     //Buscarlo habitaciones por hotel
-//     let habitacionesH = await Hotel.findById({ _id: hotelId });
-//     // Habitaciones Propias del Hotel
-//     let roomsHotel = await Room.find({ _id: { $in: habitacionesH.rooms } }, { status: 'AVAILABLE' });
-
-
-//     let hotel = await Hotel.find({ _id: { $in: habitacionesH.rooms } }, { status: 'AVAILABLE' });
-//     // let hotel = await Hotel.findOne({ _id: hotelId }, { status: 'AVAILABLE' }).select('rooms');
-//     //Valido que exista el hotel
-//     if (!hotel) return res.status(404).send({ message: "Hotel not found" });
-//     //Si existe lo devuelvo
-//     return res.send({ message: "Hotel found:", hotel });
-//   } catch (err) {
-//     console.error(err);
-//     return res.status(500).send({ message: "Error getting hotel" });
-//   }
-// };
 
 exports.deleteHotel = async (req, res) => {
   let hotelId = req.params.id;
@@ -123,4 +99,25 @@ exports.deleteHotel = async (req, res) => {
     res.status(500).json({ message: "Error al eliminar el hotel" });
   }
 };
+
+exports.updateHotel = async (req, res) => {
+  try {
+    let hotelId = req.params.id;
+    let data = req.body;
+    let existUserHotel = await Hotel.findOne({ user: data.user });
+    if (existUserHotel) {
+      return res.status(409).send({ message: "The user already manages a hotel" });
+    }
+    let hotelUpdated = await Room.findOneAndUpdate(
+      { _id: hotelId },
+      data,
+      { new: true }
+    )
+    if (!hotelUpdated) return res.status(404).send({ message: 'Hotel not found and not updated' });
+    return res.send({ message: 'Hotel updated', hotelUpdated: hotelUpdated })
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Error update hotel" });
+  }
+}
 
