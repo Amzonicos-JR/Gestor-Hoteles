@@ -132,26 +132,54 @@ exports.getReservations = async (req, res) => {
     }
 }
 
-// -Get Reservations (NO INVOICE DETAIL)-
-// exports.getReservationsNoInvoice = async (req, res) => {
-//     try {
-//         const reservacionesNoUtilizadas = await Reservation.aggregate([
-//             {
-//                 $lookup: {
-//                     from: 'InvoiceDetail',
-//                     localField: '_id',
-//                     foreignField: 'reservacionId',
-//                     as: 'booking'
-//                 }
-//             },
-//             {
-//                 $match: {
-//                     invoiceDetail: { $exists: false, $ne: null }// Filtra los documentos sin detalle de factura
-//                 }
-//             }
-//         ]);
-//         return res.send({ message: 'Reservations found', reservacionesNoUtilizadas })
-//     } catch (error) {
+exports.getReservationsNoInvoice = async (req, res) => {
+    try {
+        const reservations = await Reservation.find()
+            .populate('user')
+            .populate('hotel')
+            .populate('rooms')
+        const invoiceDetails = await InvoiceDetail.find()
+        const reservation = []
+        for (let x of reservations) {
+            let exist = await InvoiceDetail.findOne({ booking: x._id })
+            if (!exist) {
+                reservation.push(x)
+            }
+        }
 
-//     }
-// }
+        return res.send({ reservation })
+    } catch (error) {
+
+    }
+}
+
+exports.getReservationsByUser = async (req, res) => {
+    try {
+        // Buscar el usuario
+        let data = req.params.id;
+        let user = await User.findById({ _id: data }).select('name');
+        if (!user) return res.status(404).send({ message: 'User not found' });
+        // Buscar las reservaciones del usuario
+        let reservations = await Reservation.find({ user: data }).populate('hotel').populate('rooms').populate('user')
+        if (!reservations) return res.status(404).send({ message: 'Reservations not found' });
+        return res.send({ reservations });
+    } catch (err) {
+        console.log(err)
+        return res.status(500).send({ message: 'Error getting reservation' });
+    }
+}
+
+exports.getReservationsByHotel = async (req, res) => {
+    try {
+        //Buscar el hotel
+        let hotelId = req.params.id;
+        let hotel = await Hotel.findById({ _id: hotelId });
+        if (!hotel) return res.status(404).send({ message: 'Hotel not found' });
+        //Buscar las reservaciones del hotel
+        let reservations = await Reservation.find({ hotel: hotelId }).populate('hotel').populate('rooms').populate('user');
+        if (!reservations) return res.status(404).send({ message: 'Reservations not found' });
+        return res.send({ message: 'Reservations found', reservations })
+    } catch (err) {
+        console.log(err)
+    }
+}

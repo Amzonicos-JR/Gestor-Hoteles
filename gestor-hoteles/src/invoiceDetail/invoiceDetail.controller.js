@@ -3,15 +3,26 @@ const Bill = require('../bill/bill.model')
 const InvoiceDetail = require('./invoiceDetail.model')
 const Service = require('../services_/services.model')
 const Event = require('../events_/events.model')
+const Reservation = require('../reservation/reservation.model')
 
 exports.add = async(req, res)=>{
     try{    
         let data = req.body 
-        //verificar que exista la reservacion
+        let total = 0
+        //obtener el  precio de la reservacion
+        let existRev = await Reservation.findOne({_id: data.booking})
 
-        //Agregar al subtotal el precio de la habitacion por noches 
+        //Agregar el invoice detail 
         let invoiceDetail = new InvoiceDetail(data)
         await invoiceDetail.save()
+
+        //actualizar el total 
+        total = existRev.subTotal
+        console.log(total)
+        await InvoiceDetail.updateOne(
+            {_id: invoiceDetail._id},
+            {subTotalAccount: total},) 
+
         return res.status(200).send({message: 'Saved invoice detail sucessfully', data})
     }catch(err){
         console.error(err)

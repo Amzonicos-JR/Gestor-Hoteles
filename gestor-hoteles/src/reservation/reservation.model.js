@@ -13,13 +13,13 @@ const reservationSchema = mongoose.Schema({
         ref: 'Hotel',
         required: true
     },
-    rooms: [
+    rooms: 
         {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Room',
             required: true
         }
-    ],
+    ,
     cNoches: {
         type: Number,
         required: true
