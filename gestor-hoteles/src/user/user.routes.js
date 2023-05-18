@@ -13,5 +13,6 @@ api.get('/get', userController.getUsers);
 api.get('/get/:id', userController.getUser);
 api.post('/save', userController.saveAdmins);
 api.get('/getAdmins', userController.getAdmins);
+// api.get('/getBills/:id', userController.billByUser);
 
 module.exports = api;
