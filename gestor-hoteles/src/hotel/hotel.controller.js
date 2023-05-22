@@ -1,7 +1,7 @@
 "use strict";
 const Hotel = require("./hotel.model");
 const User = require("../user/user.model");
-const Room = require("../room/room.model")
+const Room = require("../room/room.model");
 const validateData = require("../utils/validate");
 
 exports.createHotel = async (req, res) => {
@@ -23,27 +23,9 @@ exports.createHotel = async (req, res) => {
       return res.status(409).send({ message: "User already has a hotel" });
     }
 
-    // Capturar array (products)
-    let arrRooms = data.rooms;
-    let arrEventos = data.events;
-    let arrServicios = data.services;
-    // Validar que no entren productos duplicados | metodo set()
-    let miSet = new Set(arrRooms);
-    let miSet2 = new Set(arrEventos);
-    let miSet3 = new Set(arrServicios);
-    if (miSet.size !== arrRooms.length) {
-      return res.send({ message: "Hay elementos duplicados en el array" });
-    } else if (miSet2.size !== arrEventos.length) {
-      return res.send({ message: "Hay elementos duplicados en el array" });
-    } else if (miSet3.size !== arrServicios.length) {
-      return res.send({ message: "Hay elementos duplicados en el array" });
-    } else {
-      let hotel = new Hotel(data);
-      await hotel.save({});
-      return res
-        .status(201)
-        .send({ message: "Hotel created successfully", hotel });
-    }
+    let hotel = new Hotel(data);
+    await hotel.save();
+    return res.send({ message: "Create hotel succesfully" });
   } catch (err) {
     console.error(err);
     return res.status(400).send({ message: "Error creating Hotel" });
@@ -72,13 +54,23 @@ exports.searchHotel = async (req, res) => {
 exports.getHotels = async (req, res) => {
   try {
     let hotels = await Hotel.find();
-    return res.send({ message: "Hotel found", hotels });
+    return res.send({ hotels });
   } catch (error) {
     console.log(err);
     return res.status(500).send({ message: "Error getting hotels" });
   }
 };
 
+exports.getHotel = async (req, res) => {
+  try {
+    let id = req.params.id;
+    let hotel = await Hotel.findOne({ _id: id }).populate("rooms").populate("events").populate("services")
+    return res.send({ hotel });
+  } catch (error) {
+    console.log(err);
+    return res.status(500).send({ message: "Error getting hotels" });
+  }
+};
 
 exports.deleteHotel = async (req, res) => {
   let hotelId = req.params.id;
@@ -106,18 +98,20 @@ exports.updateHotel = async (req, res) => {
     let data = req.body;
     let existUserHotel = await Hotel.findOne({ user: data.user });
     if (existUserHotel) {
-      return res.status(409).send({ message: "The user already manages a hotel" });
+      return res
+        .status(409)
+        .send({ message: "The user already manages a hotel" });
     }
-    let hotelUpdated = await Room.findOneAndUpdate(
-      { _id: hotelId },
-      data,
-      { new: true }
-    )
-    if (!hotelUpdated) return res.status(404).send({ message: 'Hotel not found and not updated' });
-    return res.send({ message: 'Hotel updated', hotelUpdated: hotelUpdated })
+    let hotelUpdated = await Hotel.findOneAndUpdate({ _id: hotelId }, data, {
+      new: true,
+    });
+    if (!hotelUpdated)
+      return res
+        .status(404)
+        .send({ message: "Hotel not found and not updated" });
+    return res.send({ message: "Hotel updated", });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Error update hotel" });
   }
-}
-
+};

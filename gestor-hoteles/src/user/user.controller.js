@@ -136,6 +136,7 @@ exports.saveAdmins = async (req, res) => {
         return res.send({ message: 'Account created sucessfully' });
     } catch (err) {
         console.log(err);
+        return res.send({ message: 'Error creating admins' });
     }
 }
 //Para Hoteles (SUPAMGUN)
@@ -172,5 +173,3 @@ exports.getUser = async (req, res) => {
         return res.statuts(500).send({ message: 'Error getting cellar' });
     }
 }
-
-// aca

@@ -6,6 +6,7 @@ const Rooms = require('../room/room.model')
 const { validateData } = require('../utils/validate')
 const Bill = require('../bill/bill.model')
 const InvoiceDetail = require('../invoiceDetail/invoiceDetail.model')
+const User = require('../user/user.model')
 
 // Función Test - [ADMIN APP]
 exports.test = (req, res) => {
